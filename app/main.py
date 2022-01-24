@@ -3,10 +3,12 @@ from fastapi.staticfiles import StaticFiles
 
 from app.routers import user
 from app.routers import post
+from app.routers import authentication
 
 app = FastAPI()
 
 app.include_router(user.router)
 app.include_router(post.router)
+app.include_router(authentication.router)
 
 app.mount('/images', StaticFiles(directory='images'), name='images')
