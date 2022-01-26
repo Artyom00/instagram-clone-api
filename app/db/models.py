@@ -23,3 +23,14 @@ class Post(Base):
     caption = Column(String)
     timestamp = Column(DateTime)
     user_id = Column(Integer, ForeignKey('users.id'))
+    comments = relationship('Comment', backref='post')
+
+
+class Comment(Base):
+    __tablename__ = 'comments'
+
+    id = Column(Integer, primary_key=True, index=True)
+    text = Column(String)
+    username = Column(String)
+    timestamp = Column(DateTime)
+    post_id = Column(Integer, ForeignKey('posts.id'))
