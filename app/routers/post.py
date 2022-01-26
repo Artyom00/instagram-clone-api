@@ -32,7 +32,8 @@ def get_all_posts(db: Session = Depends(get_db)):
 
 
 @router.post('/image')
-def upload_image(image: UploadFile = File(...), current_user: UserAuth = Depends(get_current_user)):
+def upload_image(image: UploadFile = File(...),
+                 current_user: UserAuth = Depends(get_current_user)):
     rand_str = ''.join(random.choice(string.ascii_letters) for _ in range(6))
     postfix = f'_{rand_str}.'
     path = f"images/{postfix.join(image.filename.rsplit('.', 1))}"
@@ -44,5 +45,6 @@ def upload_image(image: UploadFile = File(...), current_user: UserAuth = Depends
 
 
 @router.delete('/delete/{id_}')
-def remove_post(id_: int, db: Session = Depends(get_db), current_user: UserAuth = Depends(get_current_user)):
+def remove_post(id_: int, db: Session = Depends(get_db),
+                current_user: UserAuth = Depends(get_current_user)):
     return delete_post(db, id_, current_user.id)
