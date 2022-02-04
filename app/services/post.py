@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from fastapi import status, HTTPException
+from sqlalchemy import desc
 from sqlalchemy.orm import Session
 
 from app.db.models import Post
@@ -24,7 +25,7 @@ def create_post(db: Session, req_body: PostRequestBody):
 
 
 def get_posts_list(db: Session):
-    return db.query(Post).all()
+    return db.query(Post).order_by(desc(Post.timestamp)).all()
 
 
 def delete_post(db: Session, post_id: int, user_id: int):
