@@ -23,7 +23,9 @@ class Post(Base):
     caption = Column(String)
     timestamp = Column(DateTime)
     user_id = Column(Integer, ForeignKey('users.id'))
-    comments = relationship('Comment', backref='post')
+    comments = relationship('Comment', backref='post',
+                            cascade='all, delete',
+                            passive_deletes=True)
 
 
 class Comment(Base):
@@ -33,4 +35,4 @@ class Comment(Base):
     text = Column(String)
     username = Column(String)
     timestamp = Column(DateTime)
-    post_id = Column(Integer, ForeignKey('posts.id'))
+    post_id = Column(Integer, ForeignKey('posts.id', ondelete='CASCADE'))
